@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,8 +56,8 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates/app')],
+        'APP_DIRS': True,  
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'data_links',
+        'USER': 'setoo',
+        'PASSWORD': 'Dontknow@2234',
+        'HOST': 'localhost',  # Set to your DB server's IP if remote
+        'PORT': '5432',       # Default PostgreSQL port
     }
 }
 
@@ -122,3 +127,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+GOOGLE_DRIVE_CREDENTIALS_FILE = os.path.join(BASE_DIR, 'service_account_credentials.json')
+GOOGLE_DRIVE_SCOPES = ['https://www.googleapis.com/auth/drive.file']
+
+GOOGLE_DRIVE_JD_FOLDER_ID = '1sgBoF95YAHVfIlMFqPX76yD846QsQcFe'
+GOOGLE_DRIVE_RESUME_FOLDER_ID = '1WaJPawJ55Hy4Z0f7-H1onZ22k077vURO'
+SKILL_MATCH_THRESHOLD = 40
