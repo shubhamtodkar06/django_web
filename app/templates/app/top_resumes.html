@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block title %}Top Resumes for {{ selected_role }}{% endblock %}
+{% block header %}Top Resumes for {{ selected_role }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Top Resumes for Role: {{ selected_role }}</h2>
+
+        {% if matched_resumes_for_role %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Resume Filename</th>
+                        <th>Similarity Score</th>
+                        <th>Match Explanation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matched_resumes_for_role %}
+                    <tr>
+                        <td>{{ match.resume_filename }}</td>
+                        <td>{{ match.score|floatformat:2 }}</td> <td>{{ match.explanation }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No resumes matched for the role "{{ selected_role }}".</p>
+        {% endif %}
+
+        <a href="{% url 'analysis_results' results_id=results_id %}" class="button">Back to Analysis Results</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recruitment Analytics{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #0056b3; /* A nice blue color */
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="file"],
+        .form-group textarea,
+        .form-group select {
+            width: calc(100% - 22px); /* Adjust width for padding and border */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .form-group textarea {
+            height: 150px; /* Example height for textarea */
+        }
+        .messages {
+            margin-top: 20px;
+        }
+        .messages .success {
+            color: green;
+            background-color: #e0f7fa;
+            border: 1px solid green;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .messages .error {
+            color: red;
+            background-color: #ffebee;
+            border: 1px solid red;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .plot-container {
+            margin-top: 20px;
+            text-align: center; /* Center the plot if needed */
+        }
+        .plot-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd; /* Optional border for plot image */
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{% block header %}Recruitment Analytics{% endblock %}</h1>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <hr>
+            <p>&copy; {% now "Y" %} Your Company Name. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

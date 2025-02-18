@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% block title %}Manage Files & Analyze{% endblock %}
+{% block header %}Manage Job Descriptions and Resumes{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" action="{% url 'manage_files' %}">
+            {% csrf_token %}
+
+            <h2>Upload Job Description (JD)</h2>
+            <div class="form-group">
+                <label for="jd_file">Select Job Description PDF:</label>
+                <input type="file" id="jd_file" name="jd_file" accept=".pdf">  {# REMOVED required ATTRIBUTE #}
+            </div>
+            <button type="submit" name="add_jd" class="button">Upload JD</button>
+
+
+            <h2>Upload Resumes</h2>
+            <div class="form-group">
+                <label for="resume_files">Select Resume PDFs (multiple allowed):</label>
+                <input type="file" id="resume_files" name="resume_files" accept=".pdf" multiple> {# REMOVED required ATTRIBUTE #}
+            </div>
+            <button type="submit" name="add_resumes" class="button">Upload Resumes</button>
+
+
+            <hr>
+
+            <h2>Uploaded Job Descriptions</h2>
+            {% if jds %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jd in jds %}
+                    <tr>
+                        <td>{{ jd.original_filename }}</td>
+                        <td>
+                            <form method="post" action="{% url 'manage_files' %}"> <div style="display:inline-block;"> {% csrf_token %}
+                                <input type="hidden" name="jd_to_delete" value="{{ jd.pk }}">
+                                <button type="submit" name="delete_jd" class="button" style="background-color: #dc3545;">Delete</button>
+                            </div> </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No Job Descriptions uploaded yet.</p>
+            {% endif %}
+
+            <h2>Uploaded Resumes</h2>
+            {% if resumes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resume in resumes %}
+                    <tr>
+                        <td>{{ resume.original_filename }}</td>
+                        <td>
+                            <form method="post" action="{% url 'manage_files' %}"> <div style="display:inline-block;"> {% csrf_token %}
+                                <input type="hidden" name="resume_to_delete" value="{{ resume.pk }}">
+                                <button type="submit" name="delete_resume" class="button" style="background-color: #dc3545;">Delete</button>
+                            </div> </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No Resumes uploaded yet.</p>
+            {% endif %}
+
+            <hr>
+
+            <button type="submit" name="process_files" class="button" style="background-color: #28a745;">Process Resumes & Analyze</button>
+
+        </form>
+    </div>
+{% endblock %}
